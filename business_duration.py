@@ -169,4 +169,4 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
             bd = ((add_seconds/60)/60)/24
         else:
             bd = np.nan
-        return(bd)
+        return bd
