@@ -7,8 +7,13 @@ Created on Sat Feb 24 14:28:31 2018
 
 def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[5,6],holidaylist=None,unit='min'):
     import pandas as pd
-    from datetime import time, timedelta, datetime
+    from datetime import date, time, timedelta, datetime
     import numpy as np
+    #Checking whether supplied startdate & enddate is date or datetime
+    if type(startdate) is date:
+        startdate = pd.to_datetime(startdate)
+    if type(enddate) is date:
+        enddate = datetime.combine(enddate,time(23,59,59))
     if starttime==None and endtime==None:
         starttime=time(0,0,0)
         endtime=time(23,59,59)
