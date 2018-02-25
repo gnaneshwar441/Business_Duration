@@ -4,7 +4,7 @@ Calculates business duration in days, hours, minutes and seconds by excluding we
 # How to install the package
 pip install business-duration
 
-# Example
+# Example 1
 ```python
 from business_duration import businessDuration
 import pandas as pd
@@ -34,5 +34,20 @@ print(businessDuration(startdate=start_date,enddate=end_date,starttime=biz_open_
 
 #Result
 #30.0
-```
+
 #Result is 30 hours because July 1st, 2nd are weekends and 4th is US public holiday. So 3 days remains with 10 business hours per day. 3 days*10 hours = 30 Hours
+```
+
+# Example 2
+```python
+from business_duration import businessDuration
+from datetime import datetime
+
+start_date = datetime.strptime("2018-01-01","%Y-%m-%d").date()
+end_date = datetime.strptime("2018-03-31","%Y-%m-%d").date()
+
+print(businessDuration(startdate=start_date,enddate=end_date,unit='day'))
+
+#Result
+64.99
+```
