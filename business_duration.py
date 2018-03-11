@@ -47,10 +47,12 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 elif startdate.time() >= starttime and startdate.time() <= endtime: 
                     open_time = startdate.time()
                 else:
-                    open_time = time(0,0,0)
+                    #open_time = time(0,0,0)
+					return np.nan
                 #Calculate Closing day time in seconds
                 if enddate.time() < starttime:
-                    close_time = time(0,0,0)
+                    #close_time = time(0,0,0)
+					return np.nan
                 elif enddate.time() >= starttime and enddate.time() <= endtime:
                     close_time = enddate.time()
                 else:
