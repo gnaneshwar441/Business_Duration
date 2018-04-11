@@ -49,5 +49,5 @@ end_date = datetime.strptime("2018-03-31","%Y-%m-%d").date()
 print(businessDuration(startdate=start_date,enddate=end_date,unit='day'))
 
 #Result
-64.99
+65.0
 ```

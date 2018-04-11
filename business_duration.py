@@ -47,12 +47,12 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 elif startdate.time() >= starttime and startdate.time() <= endtime: 
                     open_time = startdate.time()
                 else:
-                    #open_time = time(0,0,0)
-					return np.nan
+#                    open_time = time(0,0,0)
+                    return np.nan
                 #Calculate Closing day time in seconds
                 if enddate.time() < starttime:
-                    #close_time = time(0,0,0)
-					return np.nan
+#                    close_time = time(0,0,0)
+                    return np.nan
                 elif enddate.time() >= starttime and enddate.time() <= endtime:
                     close_time = enddate.time()
                 else:
@@ -66,7 +66,11 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = startdate.time()
                     close_time = midnight_time
-            add_seconds = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+            if close_time==time(23,59,59):
+                add_seconds = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                add_seconds += 1
+            else:
+                add_seconds = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
         elif len_working_days == 2: #2 working day
             add_seconds = 0
             if starttime<=endtime: #Eg. 9AM - 6PM
@@ -80,7 +84,11 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = time(0,0,0)
                     close_time = time(0,0,0)
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
                 #Calculate Closing day time in seconds
                 if enddate.time() < starttime:
                     open_time = time(0,0,0)
@@ -91,7 +99,11 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = starttime
                     close_time = endtime
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
             else: #Eg. 9PM - 3AM
                 #Calculate Starting day time in seconds
                 midnight_time = time(23,59,59)
@@ -101,7 +113,11 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = startdate.time()
                     close_time = midnight_time
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
                 #Calculate Closing day time in seconds
                 if enddate.time() <= endtime:
                     open_time = time(0,0,0)
@@ -109,7 +125,11 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = time(0,0,0)
                     close_time = endtime
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
         else: #more than 2 working day
             add_seconds = 0
             if startdate.date() not in working_days:
@@ -128,7 +148,11 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = time(0,0,0)
                     close_time = time(0,0,0)
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
                 #Calculate Closing day time in seconds
                 if enddate.time() < starttime:
                     open_time = time(0,0,0)
@@ -139,9 +163,16 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = starttime
                     close_time = endtime
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
                 #Calculate in between days time in seconds
-                in_between_days_seconds = in_between_days*(((endtime.hour*60*60)+(endtime.minute*60)+endtime.second) - ((starttime.hour*60*60)+(starttime.minute*60)+starttime.second))
+                if endtime==time(23,59,59):
+                    in_between_days_seconds = in_between_days*((((endtime.hour*60*60)+(endtime.minute*60)+endtime.second) - ((starttime.hour*60*60)+(starttime.minute*60)+starttime.second))+1)
+                else:
+                    in_between_days_seconds = in_between_days*(((endtime.hour*60*60)+(endtime.minute*60)+endtime.second) - ((starttime.hour*60*60)+(starttime.minute*60)+starttime.second))
                 add_seconds += in_between_days_seconds
             else: #Eg. 9PM - 3AM
                 #Calculate Starting day time in seconds
@@ -153,6 +184,7 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                     open_time = startdate.time()
                     close_time = midnight_time
                 add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                add_seconds += 1
                 #Calculate Closing day time in seconds
                 if enddate.time() <= endtime:
                     open_time = time(0,0,0)
@@ -160,10 +192,19 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 else:
                     open_time = time(0,0,0)
                     close_time = endtime
-                add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                if close_time==time(23,59,59):
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
+                    add_seconds += 1
+                else:
+                    add_seconds += ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
                 #Calculating business hrs between days in seconds
                 half1 = ((midnight_time.hour*60*60)+(midnight_time.minute*60)+midnight_time.second) - ((starttime.hour*60*60)+(starttime.minute*60)+starttime.second)
-                half2 = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second)
+                half1 += 1
+                if close_time==time(23,59,59):
+                    half2 = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second)
+                    half2 += 1
+                else:
+                    half2 = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second)
                 in_between_days_seconds = in_between_days*(half1+half2)
                 add_seconds += in_between_days_seconds
         if unit=='sec':
