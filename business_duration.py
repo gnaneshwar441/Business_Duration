@@ -22,8 +22,8 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
     if pd.isnull(startdate) or pd.isnull(enddate) or startdate>enddate:
         return np.nan
     else:
-        deltatime = enddate-startdate
-        days_diff = deltatime.components.days
+        deltatime = enddate.date()-startdate.date()
+        days_diff = deltatime.days
         working_days = []
         for i in range(0,days_diff+1):
             tmp = pd.to_datetime(startdate+timedelta(i)).date()

@@ -51,3 +51,35 @@ print(businessDuration(startdate=start_date,enddate=end_date,unit='day'))
 #Result
 65.0
 ```
+
+#Example 3
+```python
+import holidays as pyholidays
+from datetime import time,datetime
+
+#Reading input file
+inputdata = pd.read_excel('Sample.xls')
+
+#Converting to standard Python datetime format
+inputdata.sys_created_on=pd.to_datetime(inputdata.sys_created_on,format='%Y-%m-%d %H:%M:%S')
+inputdata.resolved_at=pd.to_datetime(inputdata.resolved_at,format='%Y-%m-%d %H:%M:%S')
+
+#Business open hour
+biz_open_time = time(8,0,0)
+
+#Business close time
+biz_close_time = time(17,0,0)
+
+#Weekend list. 5-Sat, 6-Sun
+weekend_list = [5,6]
+
+#Custom US holidays
+US_holiday_list = {datetime(2018,1,1):"New Year's Day",datetime(2018,5,28):"Memorial Day",datetime(2018,7,4):"Independence Day",datetime(2018,9,3):"Labor Day",datetime(2018,11,22):"Thanksgiving",datetime(2018,12,25):"Christmas Day"}
+
+#Business duration 'day','hour','min','sec'
+unit_hour='hour'
+
+#Applying the function to entire dataframe
+from itertools import repeat
+inputdata['Biz_Hour'] = list(map(businessDuration,inputdata.sys_created_on,inputdata.resolved_at,repeat(biz_open_time),repeat(biz_close_time),repeat(weekend_list),repeat(US_holiday_list),repeat(unit_hour)))
+```
