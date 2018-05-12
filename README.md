@@ -54,6 +54,8 @@ print(businessDuration(startdate=start_date,enddate=end_date,unit='day'))
 
 #Example 3
 ```python
+from business_duration import businessDuration
+import pandas as pd
 import holidays as pyholidays
 from datetime import time,datetime
 
