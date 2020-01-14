@@ -34,7 +34,7 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
             working_days = [ibd for ibd in working_days if ibd.weekday() not in weekendlist]
         len_working_days = len(working_days)
         if len_working_days == 0: #no working days
-            return np.nan
+            return 0
         elif len_working_days == 1: #1 working day
             if startdate.date() not in working_days:
                 startdate = datetime.combine(working_days[0],time(0,0,0))
@@ -73,6 +73,10 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
                 add_seconds = ((close_time.hour*60*60)+(close_time.minute*60)+close_time.second) - ((open_time.hour*60*60)+(open_time.minute*60)+open_time.second)
         elif len_working_days == 2: #2 working day
             add_seconds = 0
+            if startdate.date() not in working_days:
+                startdate = datetime.combine(working_days[0],time(0,0,0))
+            if enddate.date() not in working_days:
+                enddate = datetime.combine(working_days[len_working_days-1],time(23,59,59))
             if starttime<=endtime: #Eg. 9AM - 6PM
                 #Calculate Starting day time in seconds
                 if startdate.time() < starttime:
