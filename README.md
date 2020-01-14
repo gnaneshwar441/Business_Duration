@@ -52,7 +52,7 @@ print(businessDuration(startdate=start_date,enddate=end_date,unit='day'))
 65.0
 ```
 
-#Example 3
+# Example 3
 ```python
 from business_duration import businessDuration
 import pandas as pd
