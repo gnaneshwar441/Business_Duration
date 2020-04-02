@@ -57,7 +57,7 @@ print(businessDuration(startdate=start_date,enddate=end_date,unit='day'))
 from business_duration import businessDuration
 import pandas as pd
 import holidays as pyholidays
-from datetime import time,datetime
+from datetime import time, date
 
 #Reading input file
 inputdata = pd.read_excel('Sample.xls')
@@ -76,7 +76,7 @@ biz_close_time = time(17,0,0)
 weekend_list = [5,6]
 
 #Custom US holidays
-US_holiday_list = {datetime(2018,1,1):"New Year's Day",datetime(2018,5,28):"Memorial Day",datetime(2018,7,4):"Independence Day",datetime(2018,9,3):"Labor Day",datetime(2018,11,22):"Thanksgiving",datetime(2018,12,25):"Christmas Day"}
+US_holiday_list = {date(2018,1,1):"New Year's Day",date(2018,5,28):"Memorial Day",date(2018,7,4):"Independence Day",date(2018,9,3):"Labor Day",date(2018,11,22):"Thanksgiving",date(2018,12,25):"Christmas Day"}
 
 #Business duration 'day','hour','min','sec'
 unit_hour='hour'
