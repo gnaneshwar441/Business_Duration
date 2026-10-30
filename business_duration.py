@@ -28,8 +28,15 @@ def businessDuration(startdate,enddate,starttime=None,endtime=None,weekendlist=[
         for i in range(0,days_diff+1):
             tmp = pd.to_datetime(startdate+timedelta(i)).date()
             working_days.append(tmp)
-        if holidaylist != None: #Remove public holidays
-            working_days = [ibd for ibd in working_days if ibd not in holidaylist]
+        if holidaylist is not None: #Remove public holidays
+            try:
+                normalized_holidays = {
+                    h.date() if hasattr(h, 'date') else pd.to_datetime(h).date()
+                    for h in holidaylist
+                }
+                working_days = [ibd for ibd in working_days if ibd not in normalized_holidays]
+            except Exception:
+                working_days = [ibd for ibd in working_days if ibd not in holidaylist]
         if weekendlist != None: #Remove weekends
             working_days = [ibd for ibd in working_days if ibd.weekday() not in weekendlist]
         len_working_days = len(working_days)
